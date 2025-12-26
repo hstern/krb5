@@ -55,22 +55,22 @@ type InfoBuffer struct {
 // Unmarshal bytes into the PACType struct.
 func (pac *PACType) Unmarshal(b []byte) (err error) {
 	pac.Data = b
-	zb := make([]byte, len(b))
+	zb := make([]byte, len(b), len(b))
 	copy(zb, b)
 	pac.ZeroSigData = zb
 	r := mstypes.NewReader(bytes.NewReader(b))
 
 	pac.CBuffers, err = r.Uint32()
 	if err != nil {
-		return err
+		return
 	}
 
 	pac.Version, err = r.Uint32()
 	if err != nil {
-		return err
+		return
 	}
 
-	buf := make([]InfoBuffer, pac.CBuffers)
+	buf := make([]InfoBuffer, pac.CBuffers, pac.CBuffers)
 	for i := range buf {
 		buf[i].ULType, err = r.Uint32()
 		if err != nil {
@@ -97,7 +97,7 @@ func (pac *PACType) Unmarshal(b []byte) (err error) {
 // https://msdn.microsoft.com/en-us/library/cc237954.aspx
 func (pac *PACType) ProcessPACInfoBuffers(key types.EncryptionKey, l *log.Logger) error {
 	for _, buf := range pac.Buffers {
-		p := make([]byte, buf.CBBufferSize)
+		p := make([]byte, buf.CBBufferSize, buf.CBBufferSize)
 		copy(p, pac.Data[int(buf.Offset):int(buf.Offset)+int(buf.CBBufferSize)])
 
 		switch buf.ULType {

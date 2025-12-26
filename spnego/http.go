@@ -341,6 +341,8 @@ func SPNEGOKRB5Authenticate(inner http.Handler, kt *keytab.Keytab, settings ...f
 		}
 		// If we get to here we have not authenticationed so just reject.
 		spnegoResponseReject(spnego, w, "%s - SPNEGO Kerberos authentication failed", r.RemoteAddr)
+
+		return
 	})
 }
 

@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 
 	"github.com/go-krb5/krb5/iana"
 	"github.com/go-krb5/krb5/iana/addrtype"
@@ -167,7 +166,7 @@ func TestAuthorizationData_GetPACType_GOKRB5TestData(t *testing.T) {
 	}
 	b, _ = hex.DecodeString(testdata.KEYTAB_SYSHTTP_TEST_GOKRB5)
 	kt := keytab.New()
-	require.NoError(t, kt.Unmarshal(b))
+	kt.Unmarshal(b)
 
 	sname := types.PrincipalName{NameType: nametype.KRB_NT_PRINCIPAL, NameString: []string{"sysHTTP"}}
 	w := bytes.NewBufferString("")

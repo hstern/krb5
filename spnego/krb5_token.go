@@ -158,17 +158,29 @@ func (m *KRB5Token) Verify() (bool, gssapi.Status) {
 
 // IsAPReq tests if the MechToken contains an AP_REQ.
 func (m *KRB5Token) IsAPReq() bool {
-	return hex.EncodeToString(m.tokID) == TOK_ID_KRB_AP_REQ
+	if hex.EncodeToString(m.tokID) == TOK_ID_KRB_AP_REQ {
+		return true
+	}
+
+	return false
 }
 
 // IsAPRep tests if the MechToken contains an AP_REP.
 func (m *KRB5Token) IsAPRep() bool {
-	return hex.EncodeToString(m.tokID) == TOK_ID_KRB_AP_REP
+	if hex.EncodeToString(m.tokID) == TOK_ID_KRB_AP_REP {
+		return true
+	}
+
+	return false
 }
 
 // IsKRBError tests if the MechToken contains an KRB_ERROR.
 func (m *KRB5Token) IsKRBError() bool {
-	return hex.EncodeToString(m.tokID) == TOK_ID_KRB_ERROR
+	if hex.EncodeToString(m.tokID) == TOK_ID_KRB_ERROR {
+		return true
+	}
+
+	return false
 }
 
 // Context returns the KRB5 token's context which will contain any verify user identity information.

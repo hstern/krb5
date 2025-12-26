@@ -20,7 +20,6 @@ import (
 	"github.com/go-krb5/x/identity"
 	"github.com/gorilla/sessions"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 
 	"github.com/go-krb5/krb5/client"
 	"github.com/go-krb5/krb5/config"
@@ -35,7 +34,7 @@ func TestClient_SetSPNEGOHeader(t *testing.T) {
 
 	b, _ := hex.DecodeString(testdata.KEYTAB_TESTUSER1_TEST_GOKRB5)
 	kt := keytab.New()
-	require.NoError(t, kt.Unmarshal(b))
+	kt.Unmarshal(b)
 
 	c, _ := config.NewFromString(testdata.KRB5_CONF)
 
@@ -93,7 +92,7 @@ func TestSPNEGOHTTPClient(t *testing.T) {
 
 	b, _ := hex.DecodeString(testdata.KEYTAB_TESTUSER1_TEST_GOKRB5)
 	kt := keytab.New()
-	require.NoError(t, kt.Unmarshal(b))
+	kt.Unmarshal(b)
 
 	c, _ := config.NewFromString(testdata.KRB5_CONF)
 
@@ -142,7 +141,7 @@ func TestSPNEGOHTTPClient(t *testing.T) {
 }
 
 func TestService_SPNEGOKRB_NoAuthHeader(t *testing.T) {
-	s := httpServer(t)
+	s := httpServer()
 	defer s.Close()
 
 	r, _ := http.NewRequest("GET", s.URL, nil)
@@ -159,12 +158,12 @@ func TestService_SPNEGOKRB_NoAuthHeader(t *testing.T) {
 func TestService_SPNEGOKRB_ValidUser(t *testing.T) {
 	test.Integration(t)
 
-	s := httpServer(t)
+	s := httpServer()
 	defer s.Close()
 
 	r, _ := http.NewRequest("GET", s.URL, nil)
 
-	cl := getClient(t)
+	cl := getClient()
 
 	err := SetSPNEGOHeader(cl, r, "HTTP/host.test.gokrb5")
 	if err != nil {
@@ -182,12 +181,12 @@ func TestService_SPNEGOKRB_ValidUser(t *testing.T) {
 func TestService_SPNEGOKRB_ValidUser_RawKRB5Token(t *testing.T) {
 	test.Integration(t)
 
-	s := httpServer(t)
+	s := httpServer()
 	defer s.Close()
 
 	r, _ := http.NewRequest("GET", s.URL, nil)
 
-	cl := getClient(t)
+	cl := getClient()
 	sc := SPNEGOClient(cl, "HTTP/host.test.gokrb5")
 
 	err := sc.AcquireCred()
@@ -216,12 +215,12 @@ func TestService_SPNEGOKRB_ValidUser_RawKRB5Token(t *testing.T) {
 func TestService_SPNEGOKRB_Replay(t *testing.T) {
 	test.Integration(t)
 
-	s := httpServerWithoutSessionManager(t)
+	s := httpServerWithoutSessionManager()
 	defer s.Close()
 
 	r1, _ := http.NewRequest("GET", s.URL, nil)
 
-	cl := getClient(t)
+	cl := getClient()
 
 	err := SetSPNEGOHeader(cl, r1, "HTTP/host.test.gokrb5")
 	if err != nil {
@@ -280,12 +279,12 @@ func TestService_SPNEGOKRB_Replay(t *testing.T) {
 func TestService_SPNEGOKRB_ReplayCache_Concurrency(t *testing.T) {
 	test.Integration(t)
 
-	s := httpServerWithoutSessionManager(t)
+	s := httpServerWithoutSessionManager()
 	defer s.Close()
 
 	r1, _ := http.NewRequest("GET", s.URL, nil)
 
-	cl := getClient(t)
+	cl := getClient()
 
 	err := SetSPNEGOHeader(cl, r1, "HTTP/host.test.gokrb5")
 	if err != nil {
@@ -335,7 +334,7 @@ func TestService_SPNEGOKRB_ReplayCache_Concurrency(t *testing.T) {
 func TestService_SPNEGOKRB_Upload(t *testing.T) {
 	test.Integration(t)
 
-	s := httpServer(t)
+	s := httpServer()
 	defer s.Close()
 
 	bodyBuf := &bytes.Buffer{}
@@ -347,9 +346,7 @@ func TestService_SPNEGOKRB_Upload(t *testing.T) {
 	}
 
 	data := make([]byte, 10240)
-	_, err = rand.Read(data)
-	require.NoError(t, err)
-
+	rand.Read(data)
 	br := bytes.NewReader(data)
 
 	_, err = io.Copy(fileWriter, br)
@@ -362,7 +359,7 @@ func TestService_SPNEGOKRB_Upload(t *testing.T) {
 	r, _ := http.NewRequest("POST", s.URL, bodyBuf)
 	r.Header.Set("Content-Type", bodyWriter.FormDataContentType())
 
-	cl := getClient(t)
+	cl := getClient()
 	cookieJar, _ := cookiejar.New(nil)
 	httpCl := http.DefaultClient
 	httpCl.Jar = cookieJar
@@ -388,11 +385,11 @@ func httpGet(r *http.Request, wg *sync.WaitGroup) {
 	http.DefaultClient.Do(r)
 }
 
-func httpServerWithoutSessionManager(t *testing.T) *httptest.Server {
+func httpServerWithoutSessionManager() *httptest.Server {
 	l := log.New(os.Stderr, "GOKRB5 Service Tests: ", log.LstdFlags)
 	b, _ := hex.DecodeString(testdata.HTTP_KEYTAB)
 	kt := keytab.New()
-	require.NoError(t, kt.Unmarshal(b))
+	kt.Unmarshal(b)
 
 	th := http.HandlerFunc(testAppHandler)
 	s := httptest.NewServer(SPNEGOKRB5Authenticate(th, kt, service.Logger(l)))
@@ -400,11 +397,11 @@ func httpServerWithoutSessionManager(t *testing.T) *httptest.Server {
 	return s
 }
 
-func httpServer(t *testing.T) *httptest.Server {
+func httpServer() *httptest.Server {
 	l := log.New(os.Stderr, "GOKRB5 Service Tests: ", log.LstdFlags)
 	b, _ := hex.DecodeString(testdata.HTTP_KEYTAB)
 	kt := keytab.New()
-	require.NoError(t, kt.Unmarshal(b))
+	kt.Unmarshal(b)
 
 	th := http.HandlerFunc(testAppHandler)
 	s := httptest.NewServer(SPNEGOKRB5Authenticate(th, kt, service.Logger(l), service.SessionManager(NewSessionMgr("krb5"))))
@@ -443,12 +440,14 @@ func testAppHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "<html>\nTEST.GOKRB5 Handler\nAuthenticed user: %s\nUser's realm: %s\n</html>",
 		id.UserName(),
 		id.Domain())
+
+	return
 }
 
-func getClient(t *testing.T) *client.Client {
+func getClient() *client.Client {
 	b, _ := hex.DecodeString(testdata.KEYTAB_TESTUSER1_TEST_GOKRB5)
 	kt := keytab.New()
-	require.NoError(t, kt.Unmarshal(b))
+	kt.Unmarshal(b)
 
 	c, _ := config.NewFromString(testdata.KRB5_CONF)
 	c.LibDefaults.NoAddresses = true

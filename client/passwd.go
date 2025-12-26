@@ -58,28 +58,28 @@ func (cl *Client) ChangePasswd(newPasswd string) (bool, error) {
 func (cl *Client) sendToKPasswd(msg kadmin.Request) (r kadmin.Reply, err error) {
 	_, kps, err := cl.Config.GetKpasswdServers(cl.Credentials.Domain(), true)
 	if err != nil {
-		return r, err
+		return
 	}
 
 	b, err := msg.Marshal()
 	if err != nil {
-		return r, err
+		return
 	}
 
 	var rb []byte
 	if len(b) <= cl.Config.LibDefaults.UDPPreferenceLimit {
 		rb, err = dialSendUDP(cl.settings.dialer, kps, b)
 		if err != nil {
-			return r, err
+			return
 		}
 	} else {
 		rb, err = dialSendTCP(cl.settings.dialer, kps, b)
 		if err != nil {
-			return r, err
+			return
 		}
 	}
 
 	err = r.Unmarshal(rb)
 
-	return r, err
+	return
 }

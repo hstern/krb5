@@ -33,7 +33,7 @@ func (k *SignatureData) Unmarshal(b []byte) (rb []byte, err error) {
 
 	k.SignatureType, err = r.Uint32()
 	if err != nil {
-		return rb, err
+		return
 	}
 
 	var c int
@@ -53,7 +53,7 @@ func (k *SignatureData) Unmarshal(b []byte) (rb []byte, err error) {
 
 	k.Signature, err = r.ReadBytes(c)
 	if err != nil {
-		return rb, err
+		return
 	}
 
 	// When the KDC is not an Read Only Domain Controller (RODC), this field does not exist.
@@ -65,9 +65,9 @@ func (k *SignatureData) Unmarshal(b []byte) (rb []byte, err error) {
 	}
 
 	// Create bytes with zeroed signature needed for checksum verification.
-	rb = make([]byte, len(b))
+	rb = make([]byte, len(b), len(b))
 	copy(rb, b)
-	z := make([]byte, len(b))
+	z := make([]byte, len(b), len(b))
 	copy(rb[4:4+c], z)
 
 	return

@@ -31,7 +31,7 @@ func (c *NTLMSupplementalCred) Unmarshal(b []byte) (err error) {
 
 	c.Version, err = r.Uint32()
 	if err != nil {
-		return err
+		return
 	}
 
 	if c.Version != 0 {
@@ -41,7 +41,7 @@ func (c *NTLMSupplementalCred) Unmarshal(b []byte) (err error) {
 
 	c.Flags, err = r.Uint32()
 	if err != nil {
-		return err
+		return
 	}
 
 	if isFlagSet(c.Flags, NTLMSupCredLMOWF) {
@@ -70,7 +70,11 @@ func isFlagSet(f uint32, i uint32) bool {
 	fb := make([]byte, 4)
 	binary.LittleEndian.PutUint32(fb, f)
 
-	return fb[b]&(1<<p) != 0
+	if fb[b]&(1<<p) != 0 {
+		return true
+	}
+
+	return false
 }
 
 // SECPKGSupplementalCred implements https://msdn.microsoft.com/en-us/library/cc237956.aspx

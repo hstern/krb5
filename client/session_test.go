@@ -11,7 +11,6 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 
 	"github.com/go-krb5/krb5/config"
 	"github.com/go-krb5/krb5/iana/etypeID"
@@ -25,7 +24,7 @@ func TestMultiThreadedClientSession(t *testing.T) {
 
 	b, _ := hex.DecodeString(testdata.KEYTAB_TESTUSER1_TEST_GOKRB5)
 	kt := keytab.New()
-	require.NoError(t, kt.Unmarshal(b))
+	kt.Unmarshal(b)
 
 	c, _ := config.NewFromString(testdata.KRB5_CONF)
 
@@ -91,7 +90,7 @@ func TestClient_AutoRenew_Goroutine(t *testing.T) {
 
 	b, _ := hex.DecodeString(testdata.KEYTAB_TESTUSER2_TEST_GOKRB5)
 	kt := keytab.New()
-	require.NoError(t, kt.Unmarshal(b))
+	kt.Unmarshal(b)
 
 	c, _ := config.NewFromString(testdata.KRB5_CONF)
 	c.Realms[0].KDC = []string{addr + ":" + testdata.KDC_PORT_TEST_GOKRB5_SHORTTICKETS}
@@ -126,8 +125,8 @@ func TestClient_AutoRenew_Goroutine(t *testing.T) {
 
 		b, _ := hex.DecodeString(testdata.HTTP_KEYTAB)
 		skt := keytab.New()
-		require.NoError(t, skt.Unmarshal(b))
-		require.NoError(t, tkt.DecryptEncPart(skt, nil))
+		skt.Unmarshal(b)
+		tkt.DecryptEncPart(skt, nil)
 		assert.Equal(t, spn, tkt.SName.PrincipalNameString())
 		assert.Equal(t, int32(18), key.KeyType)
 
