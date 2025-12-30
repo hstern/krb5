@@ -12,126 +12,163 @@ import (
 	"github.com/go-krb5/krb5/types"
 )
 
+func AddEType(id int32, e etype.EType) (err error) {
+	if e == nil {
+		return fmt.Errorf("no EType provided")
+	}
+
+	// TODO: Check for reserved EType ID's.
+
+	registryEType[id] = e
+
+	return nil
+}
+
+func DeleteEType(id int32) {
+	delete(registryEType, id)
+}
+
 // GetEtype returns an instances of the required etype struct for the etype ID.
-func GetEtype(id int32) (etype.EType, error) {
-	switch id {
-	case etypeID.AES128_CTS_HMAC_SHA1_96:
-		var et Aes128CtsHmacSha96
-		return et, nil
-	case etypeID.AES256_CTS_HMAC_SHA1_96:
-		var et Aes256CtsHmacSha96
-		return et, nil
-	case etypeID.AES128_CTS_HMAC_SHA256_128:
-		var et Aes128CtsHmacSha256128
-		return et, nil
-	case etypeID.AES256_CTS_HMAC_SHA384_192:
-		var et Aes256CtsHmacSha384192
-		return et, nil
-	case etypeID.DES3_CBC_SHA1_KD:
-		var et Des3CbcSha1Kd
-		return et, nil
-	case etypeID.RC4_HMAC:
-		var et RC4HMAC
-		return et, nil
-	default:
+func GetEtype(id int32) (e etype.EType, err error) {
+	var ok bool
+
+	if e, ok = registryEType[id]; !ok {
 		return nil, fmt.Errorf("unknown or unsupported EType: %d", id)
 	}
+
+	return e, nil
+}
+
+var registryEType = map[int32]etype.EType{
+	etypeID.AES128_CTS_HMAC_SHA1_96:    &Aes128CtsHmacSha96{},
+	etypeID.AES256_CTS_HMAC_SHA1_96:    &Aes256CtsHmacSha96{},
+	etypeID.AES128_CTS_HMAC_SHA256_128: &Aes128CtsHmacSha256128{},
+	etypeID.AES256_CTS_HMAC_SHA384_192: &Aes256CtsHmacSha384192{},
+	etypeID.DES3_CBC_SHA1_KD:           &Des3CbcSha1Kd{},
+	etypeID.RC4_HMAC:                   &RC4HMAC{},
+}
+
+func AddChksumEType(id int32, e etype.EType) (err error) {
+	if e == nil {
+		return fmt.Errorf("no EType provided")
+	}
+
+	// TODO: Check for reserved EType ID's.
+
+	registryChecksumEType[id] = e
+
+	return nil
+}
+
+func DeleteChksumEType(id int32) {
+	delete(registryChecksumEType, id)
 }
 
 // GetChksumEtype returns an instances of the required etype struct for the checksum ID.
-func GetChksumEtype(id int32) (etype.EType, error) {
-	switch id {
-	case chksumtype.HMAC_SHA1_96_AES128:
-		var et Aes128CtsHmacSha96
-		return et, nil
-	case chksumtype.HMAC_SHA1_96_AES256:
-		var et Aes256CtsHmacSha96
-		return et, nil
-	case chksumtype.HMAC_SHA256_128_AES128:
-		var et Aes128CtsHmacSha256128
-		return et, nil
-	case chksumtype.HMAC_SHA384_192_AES256:
-		var et Aes256CtsHmacSha384192
-		return et, nil
-	case chksumtype.HMAC_SHA1_DES3_KD:
-		var et Des3CbcSha1Kd
-		return et, nil
-	case chksumtype.KERB_CHECKSUM_HMAC_MD5:
-		var et RC4HMAC
-		return et, nil
-	//case chksumtype.KERB_CHECKSUM_HMAC_MD5_UNSIGNED:
-	//	var et RC4HMAC
-	//	return et, nil
-	default:
+func GetChksumEtype(id int32) (e etype.EType, err error) {
+	var ok bool
+
+	if e, ok = registryChecksumEType[id]; !ok {
 		return nil, fmt.Errorf("unknown or unsupported checksum type: %d", id)
 	}
+
+	return e, nil
+}
+
+var registryChecksumEType = map[int32]etype.EType{
+	chksumtype.HMAC_SHA1_96_AES128:    &Aes128CtsHmacSha96{},
+	chksumtype.HMAC_SHA1_96_AES256:    &Aes256CtsHmacSha96{},
+	chksumtype.HMAC_SHA256_128_AES128: &Aes128CtsHmacSha256128{},
+	chksumtype.HMAC_SHA384_192_AES256: &Aes256CtsHmacSha384192{},
+	chksumtype.HMAC_SHA1_DES3_KD:      &Des3CbcSha1Kd{},
+	chksumtype.KERB_CHECKSUM_HMAC_MD5: &RC4HMAC{},
 }
 
 // GetKeyFromPassword generates an encryption key from the principal's password.
 func GetKeyFromPassword(passwd string, cname types.PrincipalName, realm string, etypeID int32, pas types.PADataSequence) (types.EncryptionKey, etype.EType, error) {
 	var key types.EncryptionKey
+
 	et, err := GetEtype(etypeID)
 	if err != nil {
 		return key, et, fmt.Errorf("error getting encryption type: %v", err)
 	}
+
 	sk2p := et.GetDefaultStringToKeyParams()
-	var salt string
-	var paID int32
+
+	var (
+		salt string
+		paID int32
+	)
+
 	for _, pa := range pas {
 		switch pa.PADataType {
 		case patype.PA_PW_SALT:
 			if paID > pa.PADataType {
 				continue
 			}
+
 			salt = string(pa.PADataValue)
 		case patype.PA_ETYPE_INFO:
 			if paID > pa.PADataType {
 				continue
 			}
+
 			var eti types.ETypeInfo
+
 			err := eti.Unmarshal(pa.PADataValue)
 			if err != nil {
 				return key, et, fmt.Errorf("error unmashaling PA Data to PA-ETYPE-INFO2: %v", err)
 			}
+
 			if etypeID != eti[0].EType {
 				et, err = GetEtype(eti[0].EType)
 				if err != nil {
 					return key, et, fmt.Errorf("error getting encryption type: %v", err)
 				}
 			}
+
 			salt = string(eti[0].Salt)
 		case patype.PA_ETYPE_INFO2:
 			if paID > pa.PADataType {
 				continue
 			}
+
 			var et2 types.ETypeInfo2
+
 			err := et2.Unmarshal(pa.PADataValue)
 			if err != nil {
 				return key, et, fmt.Errorf("error unmashalling PA Data to PA-ETYPE-INFO2: %v", err)
 			}
+
 			if etypeID != et2[0].EType {
 				et, err = GetEtype(et2[0].EType)
 				if err != nil {
 					return key, et, fmt.Errorf("error getting encryption type: %v", err)
 				}
 			}
+
 			if len(et2[0].S2KParams) == 4 {
 				sk2p = hex.EncodeToString(et2[0].S2KParams)
 			}
+
 			salt = et2[0].Salt
 		}
 	}
+
 	if salt == "" {
 		salt = cname.GetSalt(realm)
 	}
+
 	k, err := et.StringToKey(passwd, salt, sk2p)
 	if err != nil {
 		return key, et, fmt.Errorf("error deriving key from string: %+v", err)
 	}
+
 	key = types.EncryptionKey{
 		KeyType:  etypeID,
 		KeyValue: k,
 	}
+
 	return key, et, nil
 }
 
@@ -139,10 +176,12 @@ func GetKeyFromPassword(passwd string, cname types.PrincipalName, realm string, 
 // Pass a usage value of zero to use the key provided directly rather than deriving one.
 func GetEncryptedData(plainBytes []byte, key types.EncryptionKey, usage uint32, kvno int) (types.EncryptedData, error) {
 	var ed types.EncryptedData
+
 	et, err := GetEtype(key.KeyType)
 	if err != nil {
 		return ed, fmt.Errorf("error getting etype: %v", err)
 	}
+
 	_, b, err := et.EncryptMessage(key.KeyValue, plainBytes, usage)
 	if err != nil {
 		return ed, err
@@ -153,6 +192,7 @@ func GetEncryptedData(plainBytes []byte, key types.EncryptionKey, usage uint32, 
 		Cipher: b,
 		KVNO:   kvno,
 	}
+
 	return ed, nil
 }
 
@@ -167,9 +207,11 @@ func DecryptMessage(ciphertext []byte, key types.EncryptionKey, usage uint32) ([
 	if err != nil {
 		return []byte{}, fmt.Errorf("error decrypting: %v", err)
 	}
+
 	b, err := et.DecryptMessage(key.KeyValue, ciphertext, usage)
 	if err != nil {
 		return nil, fmt.Errorf("error decrypting: %v", err)
 	}
+
 	return b, nil
 }
