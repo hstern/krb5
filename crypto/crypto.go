@@ -91,6 +91,7 @@ func GetKeyFromPassword(passwd string, cname types.PrincipalName, realm string, 
 			}
 
 			salt = string(pa.PADataValue)
+			paID = pa.PADataType
 		case patype.PA_ETYPE_INFO:
 			if paID > pa.PADataType {
 				continue
@@ -98,9 +99,8 @@ func GetKeyFromPassword(passwd string, cname types.PrincipalName, realm string, 
 
 			var eti types.ETypeInfo
 
-			err := eti.Unmarshal(pa.PADataValue)
-			if err != nil {
-				return key, et, fmt.Errorf("error unmashaling PA Data to PA-ETYPE-INFO2: %w", err)
+			if err = eti.Unmarshal(pa.PADataValue); err != nil {
+				return key, et, fmt.Errorf("error unmarshaling PA Data to PA-ETYPE-INFO2: %w", err)
 			}
 
 			if etypeID != eti[0].EType {
@@ -111,6 +111,7 @@ func GetKeyFromPassword(passwd string, cname types.PrincipalName, realm string, 
 			}
 
 			salt = string(eti[0].Salt)
+			paID = pa.PADataType
 		case patype.PA_ETYPE_INFO2:
 			if paID > pa.PADataType {
 				continue
@@ -118,9 +119,8 @@ func GetKeyFromPassword(passwd string, cname types.PrincipalName, realm string, 
 
 			var et2 types.ETypeInfo2
 
-			err := et2.Unmarshal(pa.PADataValue)
-			if err != nil {
-				return key, et, fmt.Errorf("error unmashalling PA Data to PA-ETYPE-INFO2: %w", err)
+			if err = et2.Unmarshal(pa.PADataValue); err != nil {
+				return key, et, fmt.Errorf("error unmarshalling PA Data to PA-ETYPE-INFO2: %w", err)
 			}
 
 			if etypeID != et2[0].EType {
@@ -135,6 +135,7 @@ func GetKeyFromPassword(passwd string, cname types.PrincipalName, realm string, 
 			}
 
 			salt = et2[0].Salt
+			paID = pa.PADataType
 		}
 	}
 
