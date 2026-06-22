@@ -200,14 +200,16 @@ func (c *CCache) writePrincipalTo(b *bytes.Buffer, p principal, endian *binary.B
 }
 
 // writeKeyblock serializes a credential's encryption key: a 16-bit key type
-// (repeated as a 32-bit value in version 3), then a length-prefixed key value.
+// (repeated as a second 16-bit value in version 3), then a length-prefixed key
+// value. This mirrors parseCredential, which reads the key type as two 16-bit
+// integers for version 3.
 func (c *CCache) writeKeyblock(b *bytes.Buffer, key types.EncryptionKey, endian *binary.ByteOrder) error {
 	if err := binary.Write(b, *endian, uint16(key.KeyType)); err != nil {
 		return err
 	}
 
 	if c.Version == 3 {
-		if err := binary.Write(b, *endian, uint32(key.KeyType)); err != nil {
+		if err := binary.Write(b, *endian, uint16(key.KeyType)); err != nil {
 			return err
 		}
 	}
