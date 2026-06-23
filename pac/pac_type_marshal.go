@@ -13,6 +13,12 @@ import (
 // the signature bytes currently held in the SignatureData structs. Buffer
 // payloads are placed at 8-byte-aligned offsets and the info-buffer table is
 // built from their sizes and offsets.
+//
+// Marshal does NOT compute or refresh the Server/KDC signatures: it emits
+// whatever signature bytes are present. Re-marshalling a parsed, signed PAC
+// therefore yields bytes that will fail checksum verification, because the
+// stored signatures were computed over the original byte layout. Use
+// SignAndMarshal to produce a verify-able PAC.
 func (pac *PACType) Marshal() ([]byte, error) {
 	data, _, err := pac.assemble()
 
