@@ -21,4 +21,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/go-krb5/x => ../contrib-krb5x
+replace github.com/go-krb5/x => github.com/hstern/x v0.3.3-0.20260623215850-0a6e401e53d9
