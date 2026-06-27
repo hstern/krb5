@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 
-	"github.com/go-krb5/x/rpc/mstypes"
+	"github.com/hstern/x/rpc/mstypes"
 )
 
 // pacWriter accumulates little-endian bytes for the non-NDR PAC buffer types,

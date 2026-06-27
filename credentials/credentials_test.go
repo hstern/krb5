@@ -3,7 +3,7 @@ package credentials
 import (
 	"testing"
 
-	"github.com/go-krb5/x/identity"
+	"github.com/hstern/x/identity"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

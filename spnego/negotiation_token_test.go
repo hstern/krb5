@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

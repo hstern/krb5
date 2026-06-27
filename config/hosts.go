@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/go-krb5/x/dns"
+	"github.com/hstern/x/dns"
 )
 
 // GetKDCs returns the count of KDCs available and a map of KDC host names keyed on preference order.

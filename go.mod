@@ -1,4 +1,4 @@
-module github.com/go-krb5/krb5
+module github.com/hstern/krb5
 
 go 1.25.0
 
@@ -6,9 +6,9 @@ toolchain go1.26.3
 
 require (
 	github.com/go-crypt/x v0.4.16
-	github.com/go-krb5/x v0.3.2
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/sessions v1.4.0
+	github.com/hstern/x v0.3.4
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/crypto v0.53.0
 )
@@ -20,5 +20,3 @@ require (
 	golang.org/x/net v0.55.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/go-krb5/x => github.com/hstern/x v0.3.3-0.20260623215850-0a6e401e53d9

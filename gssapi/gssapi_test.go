@@ -3,7 +3,7 @@ package gssapi
 import (
 	"testing"
 
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 	"github.com/stretchr/testify/assert"
 )
 

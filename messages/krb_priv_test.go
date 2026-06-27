@@ -8,11 +8,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-krb5/krb5/iana"
-	"github.com/go-krb5/krb5/iana/addrtype"
-	"github.com/go-krb5/krb5/iana/msgtype"
-	"github.com/go-krb5/krb5/test/testdata"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/iana"
+	"github.com/hstern/krb5/iana/addrtype"
+	"github.com/hstern/krb5/iana/msgtype"
+	"github.com/hstern/krb5/test/testdata"
+	"github.com/hstern/krb5/types"
 )
 
 func TestUnmarshalKRBPriv(t *testing.T) {

@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 
-	"github.com/go-krb5/krb5/crypto"
-	"github.com/go-krb5/krb5/iana/asn1apptag"
-	"github.com/go-krb5/krb5/iana/keyusage"
-	"github.com/go-krb5/krb5/iana/msgtype"
-	"github.com/go-krb5/krb5/krberror"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/crypto"
+	"github.com/hstern/krb5/iana/asn1apptag"
+	"github.com/hstern/krb5/iana/keyusage"
+	"github.com/hstern/krb5/iana/msgtype"
+	"github.com/hstern/krb5/krberror"
+	"github.com/hstern/krb5/types"
 )
 
 type marshalKRBCred struct {

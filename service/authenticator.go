@@ -6,11 +6,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-krb5/x/identity"
+	"github.com/hstern/x/identity"
 
-	"github.com/go-krb5/krb5/client"
-	"github.com/go-krb5/krb5/config"
-	"github.com/go-krb5/krb5/credentials"
+	"github.com/hstern/krb5/client"
+	"github.com/hstern/krb5/config"
+	"github.com/hstern/krb5/credentials"
 )
 
 // NewKRB5BasicAuthenticator creates a new NewKRB5BasicAuthenticator.

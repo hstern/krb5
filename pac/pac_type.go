@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/go-krb5/x/rpc/mstypes"
+	"github.com/hstern/x/rpc/mstypes"
 
-	"github.com/go-krb5/krb5/crypto"
-	"github.com/go-krb5/krb5/iana/keyusage"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/crypto"
+	"github.com/hstern/krb5/iana/keyusage"
+	"github.com/hstern/krb5/types"
 )
 
 const (

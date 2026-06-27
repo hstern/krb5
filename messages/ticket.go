@@ -5,20 +5,20 @@ import (
 	"log"
 	"time"
 
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 
-	"github.com/go-krb5/krb5/asn1tools"
-	"github.com/go-krb5/krb5/crypto"
-	"github.com/go-krb5/krb5/iana"
-	"github.com/go-krb5/krb5/iana/adtype"
-	"github.com/go-krb5/krb5/iana/asn1apptag"
-	"github.com/go-krb5/krb5/iana/errorcode"
-	"github.com/go-krb5/krb5/iana/flags"
-	"github.com/go-krb5/krb5/iana/keyusage"
-	"github.com/go-krb5/krb5/keytab"
-	"github.com/go-krb5/krb5/krberror"
-	"github.com/go-krb5/krb5/pac"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/asn1tools"
+	"github.com/hstern/krb5/crypto"
+	"github.com/hstern/krb5/iana"
+	"github.com/hstern/krb5/iana/adtype"
+	"github.com/hstern/krb5/iana/asn1apptag"
+	"github.com/hstern/krb5/iana/errorcode"
+	"github.com/hstern/krb5/iana/flags"
+	"github.com/hstern/krb5/iana/keyusage"
+	"github.com/hstern/krb5/keytab"
+	"github.com/hstern/krb5/krberror"
+	"github.com/hstern/krb5/pac"
+	"github.com/hstern/krb5/types"
 )
 
 // Reference: https://www.ietf.org/rfc/rfc4120.txt

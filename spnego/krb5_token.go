@@ -7,18 +7,18 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 
-	"github.com/go-krb5/krb5/asn1tools"
-	"github.com/go-krb5/krb5/client"
-	"github.com/go-krb5/krb5/credentials"
-	"github.com/go-krb5/krb5/gssapi"
-	"github.com/go-krb5/krb5/iana/chksumtype"
-	"github.com/go-krb5/krb5/iana/msgtype"
-	"github.com/go-krb5/krb5/krberror"
-	"github.com/go-krb5/krb5/messages"
-	"github.com/go-krb5/krb5/service"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/asn1tools"
+	"github.com/hstern/krb5/client"
+	"github.com/hstern/krb5/credentials"
+	"github.com/hstern/krb5/gssapi"
+	"github.com/hstern/krb5/iana/chksumtype"
+	"github.com/hstern/krb5/iana/msgtype"
+	"github.com/hstern/krb5/krberror"
+	"github.com/hstern/krb5/messages"
+	"github.com/hstern/krb5/service"
+	"github.com/hstern/krb5/types"
 )
 
 // GSSAPI KRB5 MechToken IDs.

@@ -3,7 +3,7 @@ package pac
 import (
 	"bytes"
 
-	"github.com/go-krb5/x/rpc/mstypes"
+	"github.com/hstern/x/rpc/mstypes"
 )
 
 // ClientInfo implements https://msdn.microsoft.com/en-us/library/cc237951.aspx

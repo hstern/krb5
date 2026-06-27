@@ -3,9 +3,9 @@ package types
 import (
 	"crypto/rand"
 
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 
-	"github.com/go-krb5/krb5/crypto/etype"
+	"github.com/hstern/krb5/crypto/etype"
 )
 
 // Reference: https://www.ietf.org/rfc/rfc4120.txt

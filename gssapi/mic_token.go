@@ -8,9 +8,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/go-krb5/krb5/crypto"
-	"github.com/go-krb5/krb5/iana/keyusage"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/crypto"
+	"github.com/hstern/krb5/iana/keyusage"
+	"github.com/hstern/krb5/types"
 )
 
 // RFC 4121, section 4.2.6.1.

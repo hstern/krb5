@@ -3,7 +3,7 @@ package pac
 import (
 	"fmt"
 
-	"github.com/go-krb5/krb5/iana/chksumtype"
+	"github.com/hstern/krb5/iana/chksumtype"
 )
 
 // signatureSize returns the byte length of a SignatureData signature for the

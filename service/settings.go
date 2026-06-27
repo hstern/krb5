@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/go-krb5/krb5/keytab"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/keytab"
+	"github.com/hstern/krb5/types"
 )
 
 // Settings defines service side configuration settings.

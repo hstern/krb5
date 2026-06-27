@@ -6,8 +6,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/go-krb5/x/rpc/mstypes"
-	"github.com/go-krb5/x/rpc/ndr"
+	"github.com/hstern/x/rpc/mstypes"
+	"github.com/hstern/x/rpc/ndr"
 )
 
 const (
