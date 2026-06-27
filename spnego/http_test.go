@@ -17,17 +17,17 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/go-krb5/x/identity"
+	"github.com/hstern/x/identity"
 	"github.com/gorilla/sessions"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-krb5/krb5/client"
-	"github.com/go-krb5/krb5/config"
-	"github.com/go-krb5/krb5/keytab"
-	"github.com/go-krb5/krb5/service"
-	"github.com/go-krb5/krb5/test"
-	"github.com/go-krb5/krb5/test/testdata"
+	"github.com/hstern/krb5/client"
+	"github.com/hstern/krb5/config"
+	"github.com/hstern/krb5/keytab"
+	"github.com/hstern/krb5/service"
+	"github.com/hstern/krb5/test"
+	"github.com/hstern/krb5/test/testdata"
 )
 
 func TestClient_SetSPNEGOHeader(t *testing.T) {

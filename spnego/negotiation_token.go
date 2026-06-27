@@ -5,13 +5,13 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 
-	"github.com/go-krb5/krb5/client"
-	"github.com/go-krb5/krb5/gssapi"
-	"github.com/go-krb5/krb5/messages"
-	"github.com/go-krb5/krb5/service"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/client"
+	"github.com/hstern/krb5/gssapi"
+	"github.com/hstern/krb5/messages"
+	"github.com/hstern/krb5/service"
+	"github.com/hstern/krb5/types"
 )
 
 // https://msdn.microsoft.com/en-us/library/ms995330.aspx

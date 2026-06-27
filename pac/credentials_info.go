@@ -5,12 +5,12 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/go-krb5/x/rpc/mstypes"
-	"github.com/go-krb5/x/rpc/ndr"
+	"github.com/hstern/x/rpc/mstypes"
+	"github.com/hstern/x/rpc/ndr"
 
-	"github.com/go-krb5/krb5/crypto"
-	"github.com/go-krb5/krb5/iana/keyusage"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/crypto"
+	"github.com/hstern/krb5/iana/keyusage"
+	"github.com/hstern/krb5/types"
 )
 
 // https://msdn.microsoft.com/en-us/library/cc237931.aspx

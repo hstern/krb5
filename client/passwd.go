@@ -3,8 +3,8 @@ package client
 import (
 	"fmt"
 
-	"github.com/go-krb5/krb5/kadmin"
-	"github.com/go-krb5/krb5/messages"
+	"github.com/hstern/krb5/kadmin"
+	"github.com/hstern/krb5/messages"
 )
 
 // Kpasswd server response codes.

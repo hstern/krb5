@@ -6,10 +6,10 @@ import (
 	"crypto/sha256"
 	"hash"
 
-	"github.com/go-krb5/krb5/crypto/common"
-	"github.com/go-krb5/krb5/crypto/rfc8009"
-	"github.com/go-krb5/krb5/iana/chksumtype"
-	"github.com/go-krb5/krb5/iana/etypeID"
+	"github.com/hstern/krb5/crypto/common"
+	"github.com/hstern/krb5/crypto/rfc8009"
+	"github.com/hstern/krb5/iana/chksumtype"
+	"github.com/hstern/krb5/iana/etypeID"
 )
 
 // RFC https://tools.ietf.org/html/rfc8009

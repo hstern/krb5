@@ -3,9 +3,9 @@ package pac
 import (
 	"bytes"
 
-	"github.com/go-krb5/x/rpc/mstypes"
+	"github.com/hstern/x/rpc/mstypes"
 
-	"github.com/go-krb5/krb5/iana/chksumtype"
+	"github.com/hstern/krb5/iana/chksumtype"
 )
 
 /*

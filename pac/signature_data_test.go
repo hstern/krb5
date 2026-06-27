@@ -7,8 +7,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-krb5/krb5/iana/chksumtype"
-	"github.com/go-krb5/krb5/test/testdata"
+	"github.com/hstern/krb5/iana/chksumtype"
+	"github.com/hstern/krb5/test/testdata"
 )
 
 func TestPAC_SignatureData_Unmarshal_Server_Signature(t *testing.T) {

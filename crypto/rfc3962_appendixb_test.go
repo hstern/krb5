@@ -7,9 +7,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-krb5/krb5/crypto/common"
-	"github.com/go-krb5/krb5/crypto/etype"
-	"github.com/go-krb5/krb5/crypto/rfc3962"
+	"github.com/hstern/krb5/crypto/common"
+	"github.com/hstern/krb5/crypto/etype"
+	"github.com/hstern/krb5/crypto/rfc3962"
 )
 
 type RFC3962AppendixBTestCase struct {

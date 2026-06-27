@@ -4,11 +4,11 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/go-krb5/x/rpc/mstypes"
+	"github.com/hstern/x/rpc/mstypes"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-krb5/krb5/test/testdata"
+	"github.com/hstern/krb5/test/testdata"
 )
 
 const (

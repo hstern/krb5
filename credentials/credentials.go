@@ -9,9 +9,9 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/go-krb5/krb5/iana/nametype"
-	"github.com/go-krb5/krb5/keytab"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/iana/nametype"
+	"github.com/hstern/krb5/keytab"
+	"github.com/hstern/krb5/types"
 )
 
 const (

@@ -2,10 +2,10 @@
 package kadmin
 
 import (
-	"github.com/go-krb5/krb5/crypto"
-	"github.com/go-krb5/krb5/krberror"
-	"github.com/go-krb5/krb5/messages"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/crypto"
+	"github.com/hstern/krb5/krberror"
+	"github.com/hstern/krb5/messages"
+	"github.com/hstern/krb5/types"
 )
 
 // ChangePasswdMsg generate a change password request and also return the key needed to decrypt the reply.

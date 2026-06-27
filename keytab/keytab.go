@@ -13,8 +13,8 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/go-krb5/krb5/crypto"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/crypto"
+	"github.com/hstern/krb5/types"
 )
 
 const (

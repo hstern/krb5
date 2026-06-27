@@ -3,7 +3,7 @@ package types
 // Reference: https://datatracker.ietf.org/doc/html/rfc4120#section-5.2.8
 
 import (
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 )
 
 // NewKrbFlags returns an ASN1 BitString struct of the right size for KrbFlags.

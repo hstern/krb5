@@ -5,18 +5,18 @@ import (
 	"math"
 	"testing"
 
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-krb5/krb5/client"
-	"github.com/go-krb5/krb5/credentials"
-	"github.com/go-krb5/krb5/gssapi"
-	"github.com/go-krb5/krb5/iana/msgtype"
-	"github.com/go-krb5/krb5/iana/nametype"
-	"github.com/go-krb5/krb5/messages"
-	"github.com/go-krb5/krb5/test/testdata"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/client"
+	"github.com/hstern/krb5/credentials"
+	"github.com/hstern/krb5/gssapi"
+	"github.com/hstern/krb5/iana/msgtype"
+	"github.com/hstern/krb5/iana/nametype"
+	"github.com/hstern/krb5/messages"
+	"github.com/hstern/krb5/test/testdata"
+	"github.com/hstern/krb5/types"
 )
 
 const (

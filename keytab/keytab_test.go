@@ -12,10 +12,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-krb5/krb5/iana/etypeID"
-	"github.com/go-krb5/krb5/iana/nametype"
-	"github.com/go-krb5/krb5/test/testdata"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/iana/etypeID"
+	"github.com/hstern/krb5/iana/nametype"
+	"github.com/hstern/krb5/test/testdata"
+	"github.com/hstern/krb5/types"
 )
 
 func TestUnmarshal(t *testing.T) {

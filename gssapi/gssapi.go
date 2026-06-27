@@ -5,7 +5,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 )
 
 // GSS-API OID names.
