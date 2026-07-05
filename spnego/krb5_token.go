@@ -218,14 +218,15 @@ func krb5TokenAuthenticator(creds *credentials.Credentials, flags []int) (types.
 
 	auth.Cksum = types.Checksum{
 		CksumType: chksumtype.GSSAPI,
-		Checksum:  newAuthenticatorChksum(flags),
+		Checksum:  NewAuthenticatorChksum(flags),
 	}
 
 	return auth, nil
 }
 
-// Create new authenticator checksum for kerberos MechToken.
-func newAuthenticatorChksum(flags []int) []byte {
+// NewAuthenticatorChksum creates a new authenticator checksum for kerberos MechToken, per RFC 4121 Section 4.1.1.
+// The checksum is used in the Authenticator's Cksum field and encodes GSS-API context flags.
+func NewAuthenticatorChksum(flags []int) []byte {
 	a := make([]byte, 24)
 	binary.LittleEndian.PutUint32(a[:4], 16)
 
