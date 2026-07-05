@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"time"
 
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/types"
 )
 
 // NewV4CCache creates a new version 4 credential cache with no credentials.

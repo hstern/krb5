@@ -3,9 +3,9 @@ package gssapi
 import (
 	"errors"
 
-	"github.com/go-krb5/krb5/crypto"
-	"github.com/go-krb5/krb5/iana/keyusage"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/crypto"
+	"github.com/hstern/krb5/iana/keyusage"
+	"github.com/hstern/krb5/types"
 )
 
 // SecContext is an established GSS-API security context. It holds the per-message

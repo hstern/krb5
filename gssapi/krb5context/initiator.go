@@ -6,16 +6,16 @@ import (
 	"fmt"
 	"slices"
 
-	"github.com/go-krb5/krb5/client"
-	"github.com/go-krb5/krb5/credentials"
-	"github.com/go-krb5/krb5/crypto"
-	"github.com/go-krb5/krb5/gssapi"
-	"github.com/go-krb5/krb5/iana/chksumtype"
-	"github.com/go-krb5/krb5/iana/flags"
-	"github.com/go-krb5/krb5/iana/keyusage"
-	"github.com/go-krb5/krb5/messages"
-	"github.com/go-krb5/krb5/spnego"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/client"
+	"github.com/hstern/krb5/credentials"
+	"github.com/hstern/krb5/crypto"
+	"github.com/hstern/krb5/gssapi"
+	"github.com/hstern/krb5/iana/chksumtype"
+	"github.com/hstern/krb5/iana/flags"
+	"github.com/hstern/krb5/iana/keyusage"
+	"github.com/hstern/krb5/messages"
+	"github.com/hstern/krb5/spnego"
+	"github.com/hstern/krb5/types"
 )
 
 // ticketGetter obtains a service ticket and its session key for an SPN. It is

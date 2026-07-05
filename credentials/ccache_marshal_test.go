@@ -8,8 +8,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-krb5/krb5/test/testdata"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/test/testdata"
+	"github.com/hstern/krb5/types"
 )
 
 func TestMarshalRoundTrip(t *testing.T) {

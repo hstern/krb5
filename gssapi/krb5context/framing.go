@@ -11,10 +11,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/go-krb5/x/encoding/asn1"
+	"github.com/hstern/x/encoding/asn1"
 
-	"github.com/go-krb5/krb5/asn1tools"
-	"github.com/go-krb5/krb5/gssapi"
+	"github.com/hstern/krb5/asn1tools"
+	"github.com/hstern/krb5/gssapi"
 )
 
 // GSS-API KRB5 mechanism token IDs (RFC 4121 §4.1): the two-byte prefix on the

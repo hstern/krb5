@@ -7,17 +7,17 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-krb5/krb5/client"
-	"github.com/go-krb5/krb5/config"
-	"github.com/go-krb5/krb5/gssapi"
-	"github.com/go-krb5/krb5/iana/chksumtype"
-	"github.com/go-krb5/krb5/iana/errorcode"
-	"github.com/go-krb5/krb5/iana/nametype"
-	"github.com/go-krb5/krb5/keytab"
-	"github.com/go-krb5/krb5/messages"
-	"github.com/go-krb5/krb5/spnego"
-	"github.com/go-krb5/krb5/test/testdata"
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/client"
+	"github.com/hstern/krb5/config"
+	"github.com/hstern/krb5/gssapi"
+	"github.com/hstern/krb5/iana/chksumtype"
+	"github.com/hstern/krb5/iana/errorcode"
+	"github.com/hstern/krb5/iana/nametype"
+	"github.com/hstern/krb5/keytab"
+	"github.com/hstern/krb5/messages"
+	"github.com/hstern/krb5/spnego"
+	"github.com/hstern/krb5/test/testdata"
+	"github.com/hstern/krb5/types"
 )
 
 func httpServiceKeytab(t *testing.T) *keytab.Keytab {
