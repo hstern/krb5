@@ -1,6 +1,7 @@
 package spnego
 
 import (
+	"encoding/binary"
 	"encoding/hex"
 	"math"
 	"testing"
@@ -47,8 +48,25 @@ func TestKRB5Token_NewAuthenticatorChksum(t *testing.T) {
 	b, err := hex.DecodeString(AuthChksum)
 	require.NoError(t, err)
 
-	cb := NewAuthenticatorChksum([]int{gssapi.ContextFlagInteg, gssapi.ContextFlagConf})
-	assert.Equal(t, b, cb)
+	chksum := NewAuthenticatorChksum([]int{gssapi.ContextFlagInteg, gssapi.ContextFlagConf}, nil)
+	assert.Equal(t, b, chksum)
+}
+
+func TestKRB5Token_NewAuthenticatorChksum_ChannelBindings(t *testing.T) {
+	t.Parallel()
+
+	cb := &gssapi.ChannelBindings{ApplicationData: []byte("tls-server-end-point:abc")}
+	chksum := NewAuthenticatorChksum([]int{gssapi.ContextFlagInteg}, cb)
+
+	// Length prefix (16) and flags are unchanged; the Bnd field now carries the
+	// channel-binding hash instead of zeros.
+	assert.Equal(t, []byte{16, 0, 0, 0}, chksum[:4])
+	assert.Equal(t, cb.Bytes(), chksum[4:20])
+	assert.Equal(t, uint32(gssapi.ContextFlagInteg), binary.LittleEndian.Uint32(chksum[20:24]))
+
+	// A nil binding leaves the Bnd field zero.
+	zero := NewAuthenticatorChksum([]int{gssapi.ContextFlagInteg}, nil)
+	assert.Equal(t, make([]byte, 16), zero[4:20])
 }
 
 // Test with explicit subkey generation.
