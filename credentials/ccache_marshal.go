@@ -164,7 +164,13 @@ func (c *CCache) writeCredential(cred *Credential, endian *binary.ByteOrder) ([]
 		return nil, err
 	}
 
-	if _, err := b.Write(cred.TicketFlags.Bytes); err != nil { // parsed as a fixed 4 bytes.
+	// Ticket flags are a fixed 4-byte field (parseCredential reads exactly 4
+	// bytes). Emit 4 bytes regardless of TicketFlags.Bytes: a caller-built
+	// credential may leave it nil or a non-4-byte length, and writing it raw
+	// would misalign every following field.
+	var flags [4]byte
+	copy(flags[:], cred.TicketFlags.Bytes)
+	if _, err := b.Write(flags[:]); err != nil {
 		return nil, err
 	}
 
