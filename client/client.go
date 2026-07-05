@@ -79,31 +79,31 @@ func NewFromCCache(c *credentials.CCache, krb5conf *config.Config, settings ...f
 		NameString: []string{"krbtgt", c.DefaultPrincipal.Realm},
 	}
 
-	cred, ok := c.GetEntry(spn)
-	if !ok {
-		return cl, errors.New("TGT not found in CCache")
+	// A TGT is optional. When present it seeds the realm session used for new
+	// TGS exchanges. A holder-of-key ccache carries only a pre-obtained service
+	// ticket (no krbtgt entry): it can still build a client and present that
+	// ticket offline, but any TGS exchange will fail loudly for want of a session.
+	if cred, ok := c.GetEntry(spn); ok {
+		var tgt messages.Ticket
+
+		if err := tgt.Unmarshal(cred.Ticket); err != nil {
+			return cl, fmt.Errorf("TGT bytes in cache are not valid: %w", err)
+		}
+
+		cl.sessions.Entries[c.DefaultPrincipal.Realm] = &session{
+			realm:      c.DefaultPrincipal.Realm,
+			authTime:   cred.AuthTime,
+			endTime:    cred.EndTime,
+			renewTill:  cred.RenewTill,
+			tgt:        tgt,
+			sessionKey: cred.Key,
+		}
 	}
 
-	var tgt messages.Ticket
-
-	err := tgt.Unmarshal(cred.Ticket)
-	if err != nil {
-		return cl, fmt.Errorf("TGT bytes in cache are not valid: %w", err)
-	}
-
-	cl.sessions.Entries[c.DefaultPrincipal.Realm] = &session{
-		realm:      c.DefaultPrincipal.Realm,
-		authTime:   cred.AuthTime,
-		endTime:    cred.EndTime,
-		renewTill:  cred.RenewTill,
-		tgt:        tgt,
-		sessionKey: cred.Key,
-	}
 	for _, cred := range c.GetEntries() {
 		var tkt messages.Ticket
 
-		err = tkt.Unmarshal(cred.Ticket)
-		if err != nil {
+		if err := tkt.Unmarshal(cred.Ticket); err != nil {
 			return cl, fmt.Errorf("cache entry ticket bytes are not valid: %w", err)
 		}
 
