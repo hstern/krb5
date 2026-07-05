@@ -41,13 +41,13 @@ func TestKRB5Token_Unmarshal(t *testing.T) {
 	assert.Equal(t, int32(18), mt.APReq.EncryptedAuthenticator.EType)
 }
 
-func TestKRB5Token_newAuthenticatorChksum(t *testing.T) {
+func TestKRB5Token_NewAuthenticatorChksum(t *testing.T) {
 	t.Parallel()
 
 	b, err := hex.DecodeString(AuthChksum)
 	require.NoError(t, err)
 
-	cb := newAuthenticatorChksum([]int{gssapi.ContextFlagInteg, gssapi.ContextFlagConf})
+	cb := NewAuthenticatorChksum([]int{gssapi.ContextFlagInteg, gssapi.ContextFlagConf})
 	assert.Equal(t, b, cb)
 }
 
