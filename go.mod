@@ -8,7 +8,7 @@ require (
 	github.com/go-crypt/x v0.4.16
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/sessions v1.4.0
-	github.com/hstern/x v0.3.3
+	github.com/hstern/x v0.3.4
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/crypto v0.53.0
 )

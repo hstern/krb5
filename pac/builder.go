@@ -3,7 +3,7 @@ package pac
 import (
 	"errors"
 
-	"github.com/go-krb5/krb5/types"
+	"github.com/hstern/krb5/types"
 )
 
 // Builder assembles and signs a PAC from individual info buffers. It is a thin

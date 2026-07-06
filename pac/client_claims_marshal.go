@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/go-krb5/x/rpc/ndr"
+	"github.com/hstern/x/rpc/ndr"
 )
 
 // Marshal encodes the ClientClaimsInfo into its NDR byte representation. Only
